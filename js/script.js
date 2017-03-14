@@ -25,7 +25,8 @@
 		// Map
 		var mapOptions = {
 			center: latLng,
-			zoom: zoom
+			zoom: zoom,
+			scrollwheel: false
 		};
 		var map = new google.maps.Map( mapCanvas[0], mapOptions );
 
