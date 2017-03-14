@@ -45,18 +45,18 @@ class PW_CMB2_Field_Google_Maps {
 
 		echo $field_type_object->input( array(
 			'type'       => 'hidden',
-			'name'       => $field->args('_name') . '[latitude]',
-			'value'      => isset( $field_escaped_value['latitude'] ) ? $field_escaped_value['latitude'] : '',
-			'id' 				 => $field->args( 'id' ) . '_latitude',
+			'name'       => $field->args('_name') . '[lat]',
+			'value'      => isset( $field_escaped_value['lat'] ) ? $field_escaped_value['lat'] : '',
+			'id' 				 => $field->args( 'id' ) . '_lat',
 			'class'      => 'pw-map-latitude',
 			'desc'       => '',
 		) );
 
 		echo $field_type_object->input( array(
 			'type'       => 'hidden',
-			'name'       => $field->args('_name') . '[longitude]',
-			'value'      => isset( $field_escaped_value['longitude'] ) ? $field_escaped_value['longitude'] : '',
-			'id' 				 => $field->args( 'id' ) . '_longitude',
+			'name'       => $field->args('_name') . '[lng]',
+			'value'      => isset( $field_escaped_value['lng'] ) ? $field_escaped_value['lng'] : '',
+			'id' 				 => $field->args( 'id' ) . '_lng',
 			'class'      => 'pw-map-longitude',
 			'desc'       => '',
 		) );
@@ -78,12 +78,12 @@ class PW_CMB2_Field_Google_Maps {
 	 */
 	public function sanitize_pw_map( $override_value, $value, $object_id, $field_args ) {
 		if ( isset( $field_args['split_values'] ) && $field_args['split_values'] ) {
-			if ( ! empty( $value['latitude'] ) ) {
-				update_post_meta( $object_id, $field_args['id'] . '_latitude', $value['latitude'] );
+			if ( ! empty( $value['lat'] ) ) {
+				update_post_meta( $object_id, $field_args['id'] . '_lat', $value['lat'] );
 			}
 
-			if ( ! empty( $value['longitude'] ) ) {
-				update_post_meta( $object_id, $field_args['id'] . '_longitude', $value['longitude'] );
+			if ( ! empty( $value['lng'] ) ) {
+				update_post_meta( $object_id, $field_args['id'] . '_lng', $value['lng'] );
 			}
 
 			if ( ! empty( $value['address'] ) ) {
@@ -98,8 +98,8 @@ class PW_CMB2_Field_Google_Maps {
 	 * Enqueue scripts and styles
 	 */
 	public function setup_admin_scripts() {
-		wp_register_script( 'pw-google-maps-api', '//maps.googleapis.com/maps/api/js?sensor=false&libraries=places', null, null );
-		wp_enqueue_script( 'pw-google-maps', plugins_url( 'js/script.js', __FILE__ ), array( 'pw-google-maps-api' ), self::VERSION );
+		//wp_register_script( 'pw-google-maps-api', '//maps.googleapis.com/maps/api/js?sensor=false&libraries=places', null, null );
+		wp_enqueue_script( 'pw-google-maps', plugins_url( 'js/script.js', __FILE__ ), array( 'google-maps-api' ), self::VERSION );
 		wp_enqueue_style( 'pw-google-maps', plugins_url( 'css/style.css', __FILE__ ), array(), self::VERSION );
 		wp_localize_script( 'pw-google-maps', 'pw_google_maps', array(
 			'default_zoom'			=> apply_filters( 'pw_map_default_zoom', 5 ),
